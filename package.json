@@ -1,0 +1,46 @@
+{
+  "name": "react-native-opencv",
+  "version": "1.1.0",
+  "description": "OpenCV binding for recat-native",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build:watch": "tsc-watch --onSuccess \"npx yalc push\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pickuppdev/react-native-opencv"
+  },
+  "homepage": "https://github.com/pickuppdev/react-native-opencv",
+  "keywords": [
+    "react-native"
+  ],
+  "author": "",
+  "contributors": [
+    {
+      "name": "Allen Ng",
+      "email": "allen.ng@pickupp.io"
+    },
+    {
+      "name": "Lawrence Ho",
+      "email": "clong@pickupp.io"
+    }
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-svg": "*"
+  },
+  "podName": "react-native-opencv",
+  "devDependencies": {
+    "@types/react-native": "^0.69.0",
+    "react-native-svg": "^12.3.0",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "expo-file-system": "^14.0.0"
+  }
+}
