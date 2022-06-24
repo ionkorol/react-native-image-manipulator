@@ -94,6 +94,7 @@ exports.MainContext = (0, react_1.createContext)({
     _setCropViewDims: undefined,
     _clearState: function () { return console.log("not implemented: _clearState"); },
     _handleDoneCommand: function () { return console.log("not implemented: _handleDoneCommand"); },
+    _handleClose: function () { return console.log("not implemented: _handleClose"); },
     _handlePerspectiveCrop: function () { return console.log("not implemented: _handleGrayScale"); },
     _handleGrayScale: function () { return console.log("not implemented: _handleGrayScale"); },
     _handleNoFilter: function () { return console.log("not implemented: _handleNoFilter"); },
@@ -244,6 +245,14 @@ var MainProvider = function (_a) {
             }
         });
     }); };
+    var _handleClose = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var _a;
+        return __generator(this, function (_b) {
+            (_a = promiseRef.current) === null || _a === void 0 ? void 0 : _a.reject("Close");
+            _clearState();
+            return [2 /*return*/];
+        });
+    }); };
     /* ******************** Effects ******************** */
     (0, react_1.useEffect)(function () {
         if (modifiedImage) {
@@ -287,6 +296,7 @@ var MainProvider = function (_a) {
             _setCropViewDims: _setCropViewDims,
             _handleNoFilter: _handleNoFilter,
             appliedFilter: appliedFilter,
+            _handleClose: _handleClose,
         } }, children));
 };
 exports.MainProvider = MainProvider;

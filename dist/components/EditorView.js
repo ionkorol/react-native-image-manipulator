@@ -47,7 +47,7 @@ var EditorView = function (ctx) {
     /* ******************** JSX ******************** */
     return (react_1.default.createElement(react_native_1.View, { ref: imgRef, style: { flex: 1, margin: dimensions_1.EDITOR_VIEW_GAP, borderWidth: 1 }, onLayout: function (e) {
             if (imgRef.current) {
-                imgRef.current.measure(function (x, y, width, height, pageX, pageY) { return _setCropViewDims && _setCropViewDims({ x: x, y: y, width: width, height: height }); });
+                imgRef.current.measure(function (x, y, width, height, pageX, pageY) { return _setCropViewDims && _setCropViewDims({ x: pageX, y: pageY, width: width, height: height }); });
             }
         } },
         react_1.default.createElement(react_native_1.ImageBackground, { source: { uri: "".concat(files_1.BASE64_PREFIX).concat(modifiedImage === null || modifiedImage === void 0 ? void 0 : modifiedImage.base64) }, style: { flex: 1 }, resizeMode: "stretch" },

@@ -16,7 +16,7 @@ export const CropArea = (ctx: IMainContext) => {
     const x = event.nativeEvent.locationX;
     const y = event.nativeEvent.locationY;
     const { pageX, pageY } = event.nativeEvent;
-    console.log(cropViewDims, pageX);
+    console.log(cropViewDims.y, pageY);
     if (
       pageX <= cropViewDims.x ||
       pageX >= cropViewDims.x + cropViewDims.width ||

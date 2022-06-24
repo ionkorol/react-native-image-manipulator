@@ -20,6 +20,7 @@ export interface IMainContext {
   _handleGrayScale: () => void;
   _handleNoFilter: () => void;
   _handleBlackWhite: () => void;
+  _handleClose: () => void;
   _handleDoneCommand: () => void;
   _setCropPoints: React.Dispatch<React.SetStateAction<Points | null>>;
   _setManipulationStage: React.Dispatch<React.SetStateAction<ManipulationStage>>;
@@ -41,6 +42,7 @@ export const MainContext = createContext<IMainContext>({
   _setCropViewDims: undefined,
   _clearState: () => console.log("not implemented: _clearState"),
   _handleDoneCommand: () => console.log("not implemented: _handleDoneCommand"),
+  _handleClose: () => console.log("not implemented: _handleClose"),
   _handlePerspectiveCrop: () => console.log("not implemented: _handleGrayScale"),
   _handleGrayScale: () => console.log("not implemented: _handleGrayScale"),
   _handleNoFilter: () => console.log("not implemented: _handleNoFilter"),
@@ -173,6 +175,11 @@ export const MainProvider = ({ children }: IProviderProps) => {
     }
   };
 
+  const _handleClose = async () => {
+    promiseRef.current?.reject("Close");
+    _clearState();
+  };
+
   /* ******************** Effects ******************** */
   useEffect(() => {
     if (modifiedImage) {
@@ -218,6 +225,7 @@ export const MainProvider = ({ children }: IProviderProps) => {
         _setCropViewDims,
         _handleNoFilter,
         appliedFilter,
+        _handleClose,
       }}
     >
       {children}

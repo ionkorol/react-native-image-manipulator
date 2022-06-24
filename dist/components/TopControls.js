@@ -11,18 +11,15 @@ var common_1 = require("./common");
 var icons_1 = require("../assets/icons");
 var TopControls = function (ctx) {
     /* ******************** Hooks ******************** */
-    var _handleDoneCommand = ctx._handleDoneCommand, manipulationStage = ctx.manipulationStage, _setManipulationStage = ctx._setManipulationStage, _clearState = ctx._clearState, isLoading = ctx.isLoading;
+    var _handleDoneCommand = ctx._handleDoneCommand, manipulationStage = ctx.manipulationStage, _setManipulationStage = ctx._setManipulationStage, _clearState = ctx._clearState, isLoading = ctx.isLoading, _handleClose = ctx._handleClose;
     /* ******************** Functions ******************** */
-    var handleOnPressClose = function () {
-        _clearState();
-    };
     var handleOnPressBack = function () {
         _setManipulationStage(enums_1.ManipulationStage.VIEW);
     };
     /* ******************** JSX ******************** */
     return (react_1.default.createElement(react_native_1.View, { style: styles.container },
         manipulationStage !== enums_1.ManipulationStage.VIEW && (react_1.default.createElement(common_1.Button, { isLoading: isLoading, icon: react_1.default.createElement(icons_1.ArrowLeftIcon, null), onPress: handleOnPressBack }, "Back")),
-        manipulationStage === enums_1.ManipulationStage.VIEW && (react_1.default.createElement(common_1.Button, { isLoading: isLoading, icon: react_1.default.createElement(icons_1.ArrowLeftIcon, null), onPress: handleOnPressClose }, "Close")),
+        manipulationStage === enums_1.ManipulationStage.VIEW && (react_1.default.createElement(common_1.Button, { isLoading: isLoading, icon: react_1.default.createElement(icons_1.ArrowLeftIcon, null), onPress: _handleClose }, "Close")),
         manipulationStage === enums_1.ManipulationStage.VIEW && (react_1.default.createElement(common_1.Button, { onPress: _handleDoneCommand, isLoading: isLoading, icon: react_1.default.createElement(icons_1.CheckIcon, null) }, "Done"))));
 };
 exports.TopControls = TopControls;

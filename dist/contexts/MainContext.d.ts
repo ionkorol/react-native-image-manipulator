@@ -14,6 +14,7 @@ export interface IMainContext {
     _handleGrayScale: () => void;
     _handleNoFilter: () => void;
     _handleBlackWhite: () => void;
+    _handleClose: () => void;
     _handleDoneCommand: () => void;
     _setCropPoints: React.Dispatch<React.SetStateAction<Points | null>>;
     _setManipulationStage: React.Dispatch<React.SetStateAction<ManipulationStage>>;

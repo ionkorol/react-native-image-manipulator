@@ -7,12 +7,10 @@ import { ArrowLeftIcon, CheckIcon } from "../assets/icons";
 
 export const TopControls = (ctx: IMainContext) => {
   /* ******************** Hooks ******************** */
-  const { _handleDoneCommand, manipulationStage, _setManipulationStage, _clearState, isLoading } = ctx;
+  const { _handleDoneCommand, manipulationStage, _setManipulationStage, _clearState, isLoading, _handleClose } = ctx;
 
   /* ******************** Functions ******************** */
-  const handleOnPressClose = () => {
-    _clearState();
-  };
+
   const handleOnPressBack = () => {
     _setManipulationStage(ManipulationStage.VIEW);
   };
@@ -27,7 +25,7 @@ export const TopControls = (ctx: IMainContext) => {
       )}
 
       {manipulationStage === ManipulationStage.VIEW && (
-        <Button isLoading={isLoading} icon={<ArrowLeftIcon />} onPress={handleOnPressClose}>
+        <Button isLoading={isLoading} icon={<ArrowLeftIcon />} onPress={_handleClose}>
           Close
         </Button>
       )}

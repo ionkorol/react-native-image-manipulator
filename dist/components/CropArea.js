@@ -51,7 +51,7 @@ var CropArea = function (ctx) {
         var x = event.nativeEvent.locationX;
         var y = event.nativeEvent.locationY;
         var _a = event.nativeEvent, pageX = _a.pageX, pageY = _a.pageY;
-        console.log(cropViewDims, pageX);
+        console.log(cropViewDims.y, pageY);
         if (pageX <= cropViewDims.x ||
             pageX >= cropViewDims.x + cropViewDims.width ||
             pageY <= cropViewDims.y ||

@@ -18,7 +18,7 @@ export const EditorView = (ctx: IMainContext) => {
       style={{ flex: 1, margin: EDITOR_VIEW_GAP, borderWidth: 1 }}
       onLayout={(e) => {
         if (imgRef.current) {
-          imgRef.current.measure((x, y, width, height, pageX, pageY) => _setCropViewDims && _setCropViewDims({ x, y, width, height }));
+          imgRef.current.measure((x, y, width, height, pageX, pageY) => _setCropViewDims && _setCropViewDims({ x: pageX, y: pageY, width, height }));
         }
       }}
     >
