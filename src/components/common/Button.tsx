@@ -4,11 +4,12 @@ import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from "react
 interface Props extends TouchableOpacityProps {
   icon?: React.ReactNode;
   isLoading: boolean;
+  testID: string;
 }
 
-export const Button: React.FC<Props> = ({ children, icon, isLoading, ...rest }) => {
+export const Button: React.FC<Props> = ({ children, icon, isLoading, testID, ...rest }) => {
   return (
-    <TouchableOpacity disabled={isLoading} {...rest} style={[styles.container, rest.style]}>
+    <TouchableOpacity disabled={isLoading} {...rest} style={[styles.container, rest.style]} testID={testID} accessibilityLabel={testID}>
       {/* {icon} */}
       <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>

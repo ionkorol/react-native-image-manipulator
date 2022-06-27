@@ -39,17 +39,17 @@ export const BottomControls = (ctx: IMainContext) => {
     <View style={[styles.container, { justifyContent: containerJustifyContent }]}>
       {manipulationStage === ManipulationStage.VIEW && (
         <>
-          <Button onPress={handleCropPress} icon={<CropIcon />} isLoading={isLoading}>
+          <Button onPress={handleCropPress} icon={<CropIcon />} isLoading={isLoading} testID="select_crop_button">
             Crop
           </Button>
-          <Button onPress={handleFiltersPress} icon={<FillIcon />} isLoading={isLoading}>
+          <Button onPress={handleFiltersPress} icon={<FillIcon />} isLoading={isLoading} testID="select_filters_button">
             Filters
           </Button>
         </>
       )}
 
       {manipulationStage === ManipulationStage.CROP && (
-        <Button onPress={_handlePerspectiveCrop} icon={<CropIcon />} isLoading={isLoading}>
+        <Button onPress={_handlePerspectiveCrop} icon={<CropIcon />} isLoading={isLoading} testID="crop_action_button">
           Crop
         </Button>
       )}
@@ -61,6 +61,7 @@ export const BottomControls = (ctx: IMainContext) => {
             icon={<DropletIcon />}
             isLoading={isLoading}
             onPress={_handleNoFilter}
+            testID="no_filter_action_button"
           >
             None
           </Button>
@@ -69,6 +70,7 @@ export const BottomControls = (ctx: IMainContext) => {
             icon={<DropletIcon />}
             isLoading={isLoading}
             onPress={_handleGrayScale}
+            testID="gray_filter_action_button"
           >
             Gray
           </Button>
@@ -77,6 +79,7 @@ export const BottomControls = (ctx: IMainContext) => {
             icon={<DropletIcon />}
             isLoading={isLoading}
             onPress={_handleBlackWhite}
+            testID="bw_filter_action_button"
           >
             B/W
           </Button>
