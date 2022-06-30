@@ -50,13 +50,13 @@ var BottomControls = function (ctx) {
     /* ******************** JSX ******************** */
     return (react_1.default.createElement(react_native_1.View, { style: [styles.container, { justifyContent: containerJustifyContent }] },
         manipulationStage === enums_1.ManipulationStage.VIEW && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(common_1.Button, { onPress: handleCropPress, icon: react_1.default.createElement(icons_1.CropIcon, null), isLoading: isLoading }, "Crop"),
-            react_1.default.createElement(common_1.Button, { onPress: handleFiltersPress, icon: react_1.default.createElement(icons_1.FillIcon, null), isLoading: isLoading }, "Filters"))),
-        manipulationStage === enums_1.ManipulationStage.CROP && (react_1.default.createElement(common_1.Button, { onPress: _handlePerspectiveCrop, icon: react_1.default.createElement(icons_1.CropIcon, null), isLoading: isLoading }, "Crop")),
+            react_1.default.createElement(common_1.Button, { onPress: handleCropPress, icon: react_1.default.createElement(icons_1.CropIcon, null), isLoading: isLoading, testID: "select_crop_button" }, "Crop"),
+            react_1.default.createElement(common_1.Button, { onPress: handleFiltersPress, icon: react_1.default.createElement(icons_1.FillIcon, null), isLoading: isLoading, testID: "select_filters_button" }, "Filters"))),
+        manipulationStage === enums_1.ManipulationStage.CROP && (react_1.default.createElement(common_1.Button, { onPress: _handlePerspectiveCrop, icon: react_1.default.createElement(icons_1.CropIcon, null), isLoading: isLoading, testID: "crop_action_button" }, "Crop")),
         manipulationStage === enums_1.ManipulationStage.FILTER && (react_1.default.createElement(react_native_1.View, { style: styles.buttonGroup },
-            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.NONE && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleNoFilter }, "None"),
-            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.GRAY && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleGrayScale }, "Gray"),
-            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.BW && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleBlackWhite }, "B/W")))));
+            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.NONE && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleNoFilter, testID: "no_filter_action_button" }, "None"),
+            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.GRAY && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleGrayScale, testID: "gray_filter_action_button" }, "Gray"),
+            react_1.default.createElement(common_1.Button, { style: [styles.button, appliedFilter !== MainContext_1.FILTER.BW && styles.buttonInactive], icon: react_1.default.createElement(icons_1.DropletIcon, null), isLoading: isLoading, onPress: _handleBlackWhite, testID: "bw_filter_action_button" }, "B/W")))));
 };
 exports.BottomControls = BottomControls;
 var styles = react_native_1.StyleSheet.create({

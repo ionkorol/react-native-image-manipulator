@@ -29,8 +29,8 @@ exports.Button = void 0;
 var react_1 = __importDefault(require("react"));
 var react_native_1 = require("react-native");
 var Button = function (_a) {
-    var children = _a.children, icon = _a.icon, isLoading = _a.isLoading, rest = __rest(_a, ["children", "icon", "isLoading"]);
-    return (react_1.default.createElement(react_native_1.TouchableOpacity, __assign({ disabled: isLoading }, rest, { style: [styles.container, rest.style] }),
+    var children = _a.children, icon = _a.icon, isLoading = _a.isLoading, testID = _a.testID, rest = __rest(_a, ["children", "icon", "isLoading", "testID"]);
+    return (react_1.default.createElement(react_native_1.TouchableOpacity, __assign({ disabled: isLoading }, rest, { style: [styles.container, rest.style], testID: testID, accessibilityLabel: testID }),
         react_1.default.createElement(react_native_1.Text, { style: styles.text }, children)));
 };
 exports.Button = Button;
