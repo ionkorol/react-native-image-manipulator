@@ -75,38 +75,36 @@ public class RNOpenCVModule extends ReactContextBaseJavaModule {
 
             Point tl = new Point(points.getMap("topLeft").getDouble("x"), points.getMap("topLeft").getDouble("y"));
             Point tr = new Point(points.getMap("topRight").getDouble("x"), points.getMap("topRight").getDouble("y"));
-            Point bl = new Point(points.getMap("bottomLeft").getDouble("x"),
-                    points.getMap("bottomLeft").getDouble("y"));
-            Point br = new Point(points.getMap("bottomRight").getDouble("x"),
-                    points.getMap("bottomRight").getDouble("y"));
+            Point bl = new Point(points.getMap("bottomLeft").getDouble("x"), points.getMap("bottomLeft").getDouble("y"));
+            Point br = new Point(points.getMap("bottomRight").getDouble("x"), points.getMap("bottomRight").getDouble("y"));
 
             Mat originalImageMat = imageBase64ToMat(base64String);
 
-            Mat transformedImageMat = new Mat();
+            double widthA = Math.sqrt(Math.pow(br.x - bl.x, 2) + Math.pow(br.y - bl.y, 2));
+            double widthB = Math.sqrt(Math.pow(tr.x - tl.x, 2) + Math.pow(tr.y - tl.y, 2));
+
+            double dw = Math.max(widthA, widthB);
+            int maxWidth = Double.valueOf(dw).intValue();
+
+            double heightA = Math.sqrt(Math.pow(tr.x - br.x, 2) + Math.pow(tr.y - br.y, 2));
+            double heightB = Math.sqrt(Math.pow(tl.x - bl.x, 2) + Math.pow(tl.y - bl.y, 2));
+
+            double dh = Math.max(heightA, heightB);
+            int maxHeight = Double.valueOf(dh).intValue();
+
+            Mat transformedImageMat = new Mat(maxHeight, maxWidth, CvType.CV_8UC4);
 
             Mat cropPointsMat = new Mat(4, 1, CvType.CV_32FC2);
             Mat toPointsMat = new Mat(4, 1, CvType.CV_32FC2);
 
-            cropPointsMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y,
-                    bl.x,
-                    bl.y);
-            toPointsMat.put(0, 0, 0.0, 0.0, originalImageMat.cols(), 0.0, originalImageMat.cols(),
-                    originalImageMat.rows(),
-                    0.0, originalImageMat.rows());
+            cropPointsMat.put(0, 0, tl.x, tl.y, tr.x, tr.y, br.x, br.y, bl.x, bl.y);
+            toPointsMat.put(0, 0, 0.0, 0.0, dw, 0.0, dw, dh, 0.0, dh);
 
             Mat m = Imgproc.getPerspectiveTransform(cropPointsMat, toPointsMat);
-            Size dsize = new Size(originalImageMat.cols(), originalImageMat.rows());
-            Imgproc.warpPerspective(originalImageMat, transformedImageMat, m, dsize);
 
-            Bitmap bitmap = Bitmap.createBitmap(transformedImageMat.cols(), transformedImageMat.rows(),
-                    Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(transformedImageMat, bitmap);
+            Imgproc.warpPerspective(originalImageMat, transformedImageMat, m, transformedImageMat.size());
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            String base64Result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            String base64Result = matToBase64(transformedImageMat);
             m.release();
             promise.resolve(base64Result);
 
@@ -126,15 +124,7 @@ public class RNOpenCVModule extends ReactContextBaseJavaModule {
             Mat transformedImageMat = new Mat(originalImageMat.rows(), originalImageMat.cols(), CvType.CV_32FC2);
             Imgproc.cvtColor(originalImageMat, transformedImageMat, Imgproc.COLOR_RGB2GRAY);
 
-            Bitmap bitmap = Bitmap.createBitmap(transformedImageMat.cols(), transformedImageMat.rows(),
-                    Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(transformedImageMat, bitmap);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            String base64Result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            String base64Result = matToBase64(transformedImageMat);
             promise.resolve(base64Result);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -157,17 +147,7 @@ public class RNOpenCVModule extends ReactContextBaseJavaModule {
                     Imgproc.THRESH_BINARY, 15, 40);
 
             // Converting to base64
-            Bitmap bitmap = Bitmap.createBitmap(transformedImageMat.cols(), transformedImageMat.rows(),
-                    Bitmap.Config.ARGB_8888);
-            Utils.matToBitmap(transformedImageMat, bitmap);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            // WritableMap map = Arguments.createMap();
-            // map.putString("path", Base64.encodeToString(byteArray, Base64.DEFAULT));
-            String base64Result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            String base64Result = matToBase64(transformedImageMat);
             promise.resolve(base64Result);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -186,6 +166,25 @@ public class RNOpenCVModule extends ReactContextBaseJavaModule {
         Utils.bitmapToMat(image, matImage);
 
         return matImage;
+    }
+
+    public String matToBase64(Mat mat) {
+
+        Bitmap bitmap = Bitmap.createBitmap(
+            mat.cols(), 
+            mat.rows(),
+            Bitmap.Config.ARGB_8888
+        );
+
+        Utils.matToBitmap(mat, bitmap);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+        String base64Result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        return base64Result;
     }
 
 }
